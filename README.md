@@ -1,7 +1,7 @@
 # ABRedundancyChecker
 ## 使用方法
 ### 1. 修改脚本参数
-把以下参数改成自己想要的:
+1. 把以下参数改成自己想要的:
 ```CSharp
 /// <summary>
 /// AB文件名匹配规则
@@ -29,3 +29,4 @@ public string abPath = "Assets/StreamingAssets";
 3. 点击菜单栏`AB冗余检测`->`AB检测`
 4. 喝一杯茶
   - 250MB的AB文件(1600个文件)检测时间为2分钟
+5. 打开输出到目标目录的MarkDown文件
