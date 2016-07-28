@@ -30,9 +30,9 @@ public string abPath = "Assets/StreamingAssets";
 4. 喝一杯茶
   - 250MB的AB文件(1600个文件)检测时间为2分钟
 5. 打开输出到目标目录的MarkDown文件
-### 3. 输出的MarkDown内容
+### 3. 输出的MarkDown内容  
 # ABRedundency_2016_7_28  
-资源名称 | 资源类型 | AB文件数量 | AB文件名
----|---|---|---
-smoke_01|Texture2D|14|`art_11_1.ab` `art_13_103.ab` `art_13_104.ab` `art_13_107.ab` `art_13_109.ab` `art_13_131.ab` `art_13_132.ab` `art_13_31.ab` `art_13_63.ab` `art_13_77.ab` `art_13_81.ab` `art_13_87.ab` `art_2_128.ab` `art_4_1.ab` 
+资源名称 | 资源类型 | AB文件数量 | AB文件名  
+---|---|---|---  
+smoke_01|Texture2D|14|`art_11_1.ab` `art_13_103.ab` `art_13_104.ab` `art_13_107.ab` `art_13_109.ab` `art_13_131.ab` `art_13_132.ab` `art_13_31.ab` `art_13_63.ab` `art_13_77.ab` `art_13_81.ab` `art_13_87.ab` `art_2_128.ab` `art_4_1.ab`  
 wuti_07|Texture2D|12|`art_11_1.ab` `art_12_4.ab` `art_13_102.ab` `art_13_116.ab` `art_13_142.ab` `art_13_17.ab` `art_13_22.ab` `art_13_31.ab` `art_13_59.ab` `art_13_61.ab` `art_13_73.ab` `art_4_1.ab` 
