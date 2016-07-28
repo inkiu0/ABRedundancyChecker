@@ -30,6 +30,7 @@ public string abPath = "Assets/StreamingAssets";
 4. 喝一杯茶
   - 250MB的AB文件(1600个文件)检测时间为2分钟
 5. 打开输出到目标目录的MarkDown文件  
+
 ### 3. 输出的MarkDown内容  
 
 | 资源名称 | 资源类型 | AB文件数量 | AB文件名|
