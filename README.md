@@ -1,6 +1,6 @@
 # ABRedundancyChecker
 ## 使用方法
-### 修改脚本参数
+### 1. 修改脚本参数
 把以下参数改成自己想要的:
 ```
 /// <summary>
@@ -10,7 +10,8 @@ public string searchPattern = "*.ab";
 /// <summary>
 /// 冗余资源类型白名单
 /// </summary>
-public List<Type> assetTypeList = new List<Type> { typeof(Material), typeof(Texture2D), typeof(AnimationClip), typeof(AudioClip), typeof(Sprite), typeof(Shader), typeof(Font), typeof(Mesh) };
+public List<Type> assetTypeList = new List<Type> { typeof(Material), typeof(Texture2D), typeof(AnimationClip),   
+typeof(AudioClip), typeof(Sprite), typeof(Shader), typeof(Font), typeof(Mesh) };
 /// <summary>
 /// 输出路径前缀，后面会拼接上日期和格式
 /// </summary>
@@ -22,7 +23,7 @@ public string abPath = "Assets/StreamingAssets";
 
 [MenuItem("AB冗余检测/AB检测")]
 ```
-### 开始使用
+### 2. 开始使用
 1. 将`ABRedundancyChecker.cs`放在Unity项目的Editor目录下
 2. 将所有打包好的AssetBundle文件放在`abPath`目录下
 3. 点击菜单栏`AB冗余检测`->`AB检测`
