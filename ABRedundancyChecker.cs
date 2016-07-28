@@ -21,9 +21,9 @@ class ABRedundancyChecker
     /// </summary>
     public List<Type> assetTypeList = new List<Type> { typeof(Material), typeof(Texture2D), typeof(AnimationClip), typeof(AudioClip), typeof(Sprite), typeof(Shader), typeof(Font), typeof(Mesh) };
     /// <summary>
-    /// 输出路径前缀，后面会拼接上日期和格式
+    /// 输出路径
     /// </summary>
-    public string outPath = "C:/Users/SH/Desktop/ABRedundency_";
+    public string outPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
     /// <summary>
     /// AB文件存放路径，会从这个文件夹下递归查找符合查找规则searchPattern的文件。
     /// </summary>
@@ -207,7 +207,7 @@ class ABRedundancyChecker
 
     private void ConvertMapToMarkDown()
     {
-        string path = outPath + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".md";
+        string path = outPath + "/ABRedundency_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".md";
         if (File.Exists(path))
         {
             File.Delete(path);
