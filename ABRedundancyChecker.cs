@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+/// <summary>
+/// Author:     inkiu0@gmail.com
+/// Date:       2016/07/28
+/// </summary>
 class ABRedundancyChecker
 {
     /// <summary>
