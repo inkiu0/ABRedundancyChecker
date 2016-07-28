@@ -4,7 +4,6 @@ using System.Text;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using System.Text.RegularExpressions;
 
 class ABRedundancyChecker
 {
