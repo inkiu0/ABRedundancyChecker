@@ -6,8 +6,9 @@ using UnityEditor;
 using System.IO;
 
 /// <summary>
-/// Author:     inkiu0@gmail.com
-/// Date:       2016/07/28
+/// Author: inkiu0@gmail.com
+/// Date: 2016/07/28
+/// Repository: https://github.com/inkiu0/ABRedundancyChecker
 /// </summary>
 class ABRedundancyChecker
 {
