@@ -69,7 +69,7 @@ class ABRedundancyChecker
             }
             catch (Exception e)
             {
-
+                Debug.Log("<color=red>" + e + "</color>");
             }
 
             startIndex++;
@@ -96,55 +96,59 @@ class ABRedundancyChecker
         string[] names = ab.GetAllAssetNames();
         PreIndex = Resources.FindObjectsOfTypeAll<UnityEngine.Object>().Length;
         ab.LoadAllAssets();
-        List<string> _depens = GetABDependeciesNameArr(names);
+        Dictionary<string, string> assetNamePathMap = new Dictionary<string, string>();
+        List<string> _depens = new List<string>();
+        GetABDependeciesNameArr(names, out _depens, out assetNamePathMap);
         
         UnityEngine.Object[] objs = Resources.FindObjectsOfTypeAll<UnityEngine.Object>();
         for (int i=PreIndex; i < objs.Length; ++i)
         {
             if (objs[i] != null && assetTypeList.Contains(objs[i].GetType()) && _depens.Contains(objs[i].name))
-                TryAddAssetToMap(objs[i].name, abName, GetObjectType(objs[i]));
+                TryAddAssetToMap(objs[i].name, assetNamePathMap[objs[i].name], abName, GetObjectType(objs[i]));
         }
     }
 
-    private List<string> GetABDependeciesNameArr(string[] assetsNameArr)
+    private void GetABDependeciesNameArr(string[] assetsNameArr, out List<string> _depens, out Dictionary<string, string> assetNamePathMap)
     {
-        List<string> _depens = new List<string> { };
+        _depens = new List<string> { };
+        assetNamePathMap = new Dictionary<string, string>();
         string[]  dependencies = AssetDatabase.GetDependencies(assetsNameArr);
         for(int i=0; i < dependencies.Length; ++i)
         {
             string[] _pathArr = dependencies[i].Split('/');
             string[] _depenAssetName = _pathArr[_pathArr.Length - 1].Split('.');
             _depens.Add(_depenAssetName[0]);
+            if (!assetNamePathMap.ContainsKey(_depenAssetName[0]))
+                assetNamePathMap.Add(_depenAssetName[0], dependencies[i]);
         }
-        return _depens; 
     }
 
-    private void TryAddAssetToMap(string assetName, string abName, string type)
+    private void TryAddAssetToMap(string assetName, string assetPath, string abName, string type)
     {
-        if (_AssetMap.ContainsKey(assetName))
+        if (_AssetMap.ContainsKey(assetPath))
         {
-            AssetInfo assetInfo = _AssetMap[assetName];
+            AssetInfo assetInfo = _AssetMap[assetPath];
             if (!assetInfo.referenceABNames.Contains(abName))
             {
                 assetInfo.referenceCount += 1;
                 assetInfo.referenceABNames += "`" + abName + "` ";
-                _AssetMap[assetName] = assetInfo;
+                _AssetMap[assetPath] = assetInfo;
             }
         }
         else
         {
-            AddAssetToMap(assetName, abName, type);
+            AddAssetToMap(assetName, assetPath, abName, type);
         }
     }
 
-    private void AddAssetToMap(string assetName, string abName, string type)
+    private void AddAssetToMap(string assetName, string assetPath, string abName, string type)
     {
         AssetInfo assetInfo = new AssetInfo();
         assetInfo.name = assetName;
         assetInfo.abType = type;
         assetInfo.referenceCount += 1;
         assetInfo.referenceABNames += "`" + abName + "` ";
-        _AssetMap.Add(assetName, assetInfo);
+        _AssetMap.Add(assetPath, assetInfo);
     }
 
     /// <summary>
