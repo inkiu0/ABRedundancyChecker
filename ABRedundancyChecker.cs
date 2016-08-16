@@ -211,14 +211,14 @@ class ABRedundancyChecker
 
     private void ConvertMapToMarkDown()
     {
-        string path = outPath + "/ABRedundency_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".md";
+        string path = outPath + "/ABRedundency" + DateTime.Now.ToString("yyMMddHHmm") + ".md";
         if (File.Exists(path))
         {
             File.Delete(path);
         }
         using (FileStream fs = File.Create(path))
         {
-            AddText(fs, "# ABRedundency_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "  \r\n");
+            AddText(fs, "# ABRedundency_" + DateTime.Now.ToString("yyMMddHHmm") + "  \r\n");
             AddText(fs, "资源名称 | 资源类型 | AB文件数量 | AB文件名\r\n");
             AddText(fs, "---|---|---|---\r\n");
             foreach(AssetInfo assetInfo in _AssetMap.Values)
