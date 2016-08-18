@@ -89,37 +89,18 @@ class ABRedundancyChecker
         };
     }
 
-    int PreIndex = 0;
     public void CheckABInfo(AssetBundle ab, string abName)
     {
         EditorSettings.serializationMode = SerializationMode.ForceText;
         string[] names = ab.GetAllAssetNames();
-        PreIndex = Resources.FindObjectsOfTypeAll<UnityEngine.Object>().Length;
-        ab.LoadAllAssets();
-        Dictionary<string, string> assetNamePathMap = new Dictionary<string, string>();
-        List<string> _depens = new List<string>();
-        GetABDependeciesNameArr(names, out _depens, out assetNamePathMap);
-        
-        UnityEngine.Object[] objs = Resources.FindObjectsOfTypeAll<UnityEngine.Object>();
-        for (int i=PreIndex; i < objs.Length; ++i)
+        string[] dependencies = AssetDatabase.GetDependencies(names);
+        string[] allDepen = dependencies.Length > 0 ? dependencies : names;
+        Dictionary<string, UnityEngine.Object> assetMap = new Dictionary<string, UnityEngine.Object>();
+        for (int i = 0; i < allDepen.Length; ++i)
         {
-            if (objs[i] != null && assetTypeList.Contains(objs[i].GetType()) && _depens.Contains(objs[i].name))
-                TryAddAssetToMap(objs[i].name, assetNamePathMap[objs[i].name], abName, GetObjectType(objs[i]));
-        }
-    }
-
-    private void GetABDependeciesNameArr(string[] assetsNameArr, out List<string> _depens, out Dictionary<string, string> assetNamePathMap)
-    {
-        _depens = new List<string> { };
-        assetNamePathMap = new Dictionary<string, string>();
-        string[]  dependencies = AssetDatabase.GetDependencies(assetsNameArr);
-        for(int i=0; i < dependencies.Length; ++i)
-        {
-            string[] _pathArr = dependencies[i].Split('/');
-            string[] _depenAssetName = _pathArr[_pathArr.Length - 1].Split('.');
-            _depens.Add(_depenAssetName[0]);
-            if (!assetNamePathMap.ContainsKey(_depenAssetName[0]))
-                assetNamePathMap.Add(_depenAssetName[0], dependencies[i]);
+            UnityEngine.Object obj = ab.LoadAsset(allDepen[i]);
+            if (obj != null && assetTypeList.Contains(obj.GetType()))
+                TryAddAssetToMap(obj.name, allDepen[i], abName, GetObjectType(obj));
         }
     }
 
@@ -221,9 +202,14 @@ class ABRedundancyChecker
             AddText(fs, "# ABRedundency_" + DateTime.Now.ToString("yyMMddHHmm") + "  \r\n");
             AddText(fs, "资源名称 | 资源类型 | AB文件数量 | AB文件名\r\n");
             AddText(fs, "---|---|---|---\r\n");
-            foreach(AssetInfo assetInfo in _AssetMap.Values)
+            string single = "";
+            string repeat = "";
+            foreach (AssetInfo assetInfo in _AssetMap.Values)
             {
-                AddText(fs, assetInfo.name + "|" + assetInfo.abType + "|" + assetInfo.referenceCount + "|" + assetInfo.referenceABNames + "\r\n");
+                if (assetInfo.referenceCount > 1)
+                    repeat += assetInfo.name + "|" + assetInfo.abType + "|" + assetInfo.referenceCount + "|" + assetInfo.referenceABNames + "\r\n";
+                else
+                    single += assetInfo.name + "|" + assetInfo.abType + "|" + assetInfo.referenceCount + "|" + assetInfo.referenceABNames + "\r\n";
             }
         }
     }
