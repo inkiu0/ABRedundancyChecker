@@ -211,6 +211,8 @@ class ABRedundancyChecker
                 else
                     single += assetInfo.name + "|" + assetInfo.abType + "|" + assetInfo.referenceCount + "|" + assetInfo.referenceABNames + "\r\n";
             }
+            AddText(fs, repeat);
+            AddText(fs, single);
         }
     }
 
